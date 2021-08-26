@@ -156,6 +156,7 @@ MonoBehaviour:
   squareX: 0.2
   hex: {fileID: 8530682932608411219, guid: b54d47c09d55446a4ba98d9f100f94c6, type: 3}
   square: {fileID: 6796970532966019385, guid: d6a6526db029e094cac1e733b0b636ef, type: 3}
+  circle: {fileID: 557786336594007617, guid: d280811ccec994380bf743db6c51cac3, type: 3}
   hexNode: {fileID: 1048967301}
   squareNode: {fileID: 470038702}
 --- !u!4 &6964703

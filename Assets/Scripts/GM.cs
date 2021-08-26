@@ -17,7 +17,7 @@ public class GM : MonoBehaviour
     public Transform squareNode;
 
     // private float _threshold = 0.01f;
-    private Dictionary<int, Color> _colorMap;
+    public Dictionary<int, Color> colorMap;
 
     private float _hexZ;
     private float _squareZ;
@@ -62,21 +62,21 @@ public class GM : MonoBehaviour
 
     void ColorMap()
     {
-        _colorMap = new Dictionary<int, Color>();
-        _colorMap.Add(6, Color.red);
-        _colorMap.Add(7, new Color(1f, 165 / 255.0f, 0));
-        _colorMap.Add(8, Color.yellow);
-        _colorMap.Add(9, Color.green);
-        _colorMap.Add(10, Color.cyan);
-        _colorMap.Add(11, Color.blue);
-        _colorMap.Add(12, new Color(153 / 255.0f, 51 / 255.0f, 1.0f));
-        _colorMap.Add(13, Color.magenta);
-        _colorMap.Add(14, Color.gray);
+        colorMap = new Dictionary<int, Color>();
+        colorMap.Add(6, Color.red);
+        colorMap.Add(7, new Color(1f, 165 / 255.0f, 0));
+        colorMap.Add(8, Color.yellow);
+        colorMap.Add(9, Color.green);
+        colorMap.Add(10, Color.cyan);
+        colorMap.Add(11, Color.blue);
+        colorMap.Add(12, new Color(153 / 255.0f, 51 / 255.0f, 1.0f));
+        colorMap.Add(13, Color.magenta);
+        colorMap.Add(14, Color.gray);
     }
 
     void IgnoreCol()
     {
-        foreach (var item in _colorMap)
+        foreach (var item in colorMap)
         {
             Physics2D.IgnoreLayerCollision(item.Key, item.Key);
         }
@@ -92,34 +92,74 @@ public class GM : MonoBehaviour
 
     void PlaceSquare()
     {
-        int initSize = 4;
+        int initSize = 3;
         var size = (int) Math.Floor((hexRadius / 2) / squareX) + 1;
         for (int i = 0; i < size; i++)
         {
             for (int j = 0; j < size; j++)
             {
-                var go = CreateSquare(new Vector3((i + 0.5f) * squareX, (j + 0.5f) * squareX, _squareZ));
+                var pos = new Vector3((i + 0.5f) * squareX, (j + 0.5f) * squareX, _squareZ);
+                var go = CreateSquare(pos);
                 if (i - size / 2 <= initSize && i - size / 2 >= 0 && j - size / 2 <= initSize && j - size / 2 >= 0)
                 {
-                    go.GetComponent<SpriteRenderer>().color = _colorMap[6];
+                    go.GetComponent<SpriteRenderer>().color = colorMap[6];
+                    if (i - size / 2 == 0 && j - size / 2 == 0)
+                    {
+                        var c = Instantiate(circle, pos, Quaternion.identity);
+                        var b = c.GetComponent<Ball>();
+                        b.type = 6;
+                        b.gm = this;
+                        c.GetComponent<SpriteRenderer>().color = colorMap[6];
+                        c.layer = 6;
+                    }
                 }
 
-                go = CreateSquare(new Vector3(-(i + 0.5f) * squareX, (j + 0.5f) * squareX, _squareZ));
+                pos = new Vector3(-(i + 0.5f) * squareX, (j + 0.5f) * squareX, _squareZ);
+                go = CreateSquare(pos);
                 if (i - size / 2 <= initSize && i - size / 2 >= 0 && j - size / 2 <= initSize && j - size / 2 >= 0)
                 {
-                    go.GetComponent<SpriteRenderer>().color = _colorMap[7];
+                    go.GetComponent<SpriteRenderer>().color = colorMap[7];
+                    if (i - size / 2 == 0 && j - size / 2 == 0)
+                    {
+                        var c = Instantiate(circle, pos, Quaternion.identity);
+                        var b = c.GetComponent<Ball>();
+                        b.type = 7;
+                        b.gm = this;
+                        c.GetComponent<SpriteRenderer>().color = colorMap[7];
+                        c.layer = 7;
+                    }
                 }
 
-                go = CreateSquare(new Vector3((i + 0.5f) * squareX, -(j + 0.5f) * squareX, _squareZ));
+                pos = new Vector3((i + 0.5f) * squareX, -(j + 0.5f) * squareX, _squareZ);
+                go = CreateSquare(pos);
                 if (i - size / 2 <= initSize && i - size / 2 >= 0 && j - size / 2 <= initSize && j - size / 2 >= 0)
                 {
-                    go.GetComponent<SpriteRenderer>().color = _colorMap[8];
+                    go.GetComponent<SpriteRenderer>().color = colorMap[8];
+                    if (i - size / 2 == 0 && j - size / 2 == 0)
+                    {
+                        var c = Instantiate(circle, pos, Quaternion.identity);
+                        var b = c.GetComponent<Ball>();
+                        b.type = 8;
+                        b.gm = this;
+                        c.GetComponent<SpriteRenderer>().color = colorMap[8];
+                        c.layer = 8;
+                    }
                 }
 
-                go = CreateSquare(new Vector3(-(i + 0.5f) * squareX, -(j + 0.5f) * squareX, _squareZ));
+                pos = new Vector3(-(i + 0.5f) * squareX, -(j + 0.5f) * squareX, _squareZ);
+                go = CreateSquare(pos);
                 if (i - size / 2 <= initSize && i - size / 2 >= 0 && j - size / 2 <= initSize && j - size / 2 >= 0)
                 {
-                    go.GetComponent<SpriteRenderer>().color = _colorMap[9];
+                    go.GetComponent<SpriteRenderer>().color = colorMap[9];
+                    if (i - size / 2 == 0 && j - size / 2 == 0)
+                    {
+                        var c = Instantiate(circle, pos, Quaternion.identity);
+                        var b = c.GetComponent<Ball>();
+                        b.type = 9;
+                        b.gm = this;
+                        c.GetComponent<SpriteRenderer>().color = colorMap[9];
+                        c.layer = 9;
+                    }
                 }
             }
         }
