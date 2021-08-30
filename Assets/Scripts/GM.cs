@@ -163,6 +163,7 @@ public class GM : MonoBehaviour
                         var b = c.GetComponent<Ball>();
                         b.type = 9;
                         b.gm = this;
+                        b.debug = true;
                         c.GetComponent<SpriteRenderer>().color = colorMap[9];
                         c.layer = 9;
                     }

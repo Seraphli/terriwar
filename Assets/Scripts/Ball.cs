@@ -9,6 +9,7 @@ public class Ball : MonoBehaviour
 {
     public int type;
     public float speed;
+    public bool debug = false;
 
     public Color color;
     public GM gm;
@@ -23,13 +24,12 @@ public class Ball : MonoBehaviour
         var rb = GetComponent<Rigidbody2D>();
         var m_NewForce = new Vector2(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f));
         rb.velocity = m_NewForce.normalized * speed;
-        print(rb.velocity);
         _enabled = true;
     }
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!_enabled)
         {
@@ -37,8 +37,17 @@ public class Ball : MonoBehaviour
         }
 
         var rb = GetComponent<Rigidbody2D>();
+        if (debug)
+        {
+            print(rb.velocity);
+        }
+
         rb.velocity = rb.velocity.normalized * speed;
-        print(rb.velocity);
+
+        if (debug)
+        {
+            print(rb.velocity);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)
