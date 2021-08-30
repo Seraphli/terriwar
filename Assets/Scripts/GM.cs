@@ -21,11 +21,13 @@ public class GM : MonoBehaviour
 
     private float _hexZ;
     private float _squareZ;
+    private float _circleZ;
 
     void Init()
     {
         _hexZ = hex.transform.position.z;
         _squareZ = square.transform.position.z;
+        _circleZ = circle.transform.position.z;
     }
 
     // void OutBound()
@@ -105,6 +107,7 @@ public class GM : MonoBehaviour
                     go.GetComponent<SpriteRenderer>().color = colorMap[6];
                     if (i - size / 2 == 0 && j - size / 2 == 0)
                     {
+                        pos = new Vector3((i + 0.5f) * squareX, (j + 0.5f) * squareX, _circleZ);
                         var c = Instantiate(circle, pos, Quaternion.identity);
                         var b = c.GetComponent<Ball>();
                         b.type = 6;
@@ -121,6 +124,7 @@ public class GM : MonoBehaviour
                     go.GetComponent<SpriteRenderer>().color = colorMap[7];
                     if (i - size / 2 == 0 && j - size / 2 == 0)
                     {
+                        pos = new Vector3(-(i + 0.5f) * squareX, (j + 0.5f) * squareX, _circleZ);
                         var c = Instantiate(circle, pos, Quaternion.identity);
                         var b = c.GetComponent<Ball>();
                         b.type = 7;
@@ -137,6 +141,7 @@ public class GM : MonoBehaviour
                     go.GetComponent<SpriteRenderer>().color = colorMap[8];
                     if (i - size / 2 == 0 && j - size / 2 == 0)
                     {
+                        pos = new Vector3((i + 0.5f) * squareX, -(j + 0.5f) * squareX, _circleZ);
                         var c = Instantiate(circle, pos, Quaternion.identity);
                         var b = c.GetComponent<Ball>();
                         b.type = 8;
@@ -153,6 +158,7 @@ public class GM : MonoBehaviour
                     go.GetComponent<SpriteRenderer>().color = colorMap[9];
                     if (i - size / 2 == 0 && j - size / 2 == 0)
                     {
+                        pos = new Vector3(-(i + 0.5f) * squareX, -(j + 0.5f) * squareX, _circleZ);
                         var c = Instantiate(circle, pos, Quaternion.identity);
                         var b = c.GetComponent<Ball>();
                         b.type = 9;

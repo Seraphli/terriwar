@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
 {
     public int type;
+    public float speed;
 
     public Color color;
     public GM gm;
@@ -18,13 +22,23 @@ public class Ball : MonoBehaviour
         sr.color = new Color(color.r * 0.6f, color.g * 0.6f, color.b * 0.6f);
         var rb = GetComponent<Rigidbody2D>();
         var m_NewForce = new Vector2(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f));
-        rb.AddForce(m_NewForce.normalized, ForceMode2D.Impulse);
+        rb.velocity = m_NewForce.normalized * speed;
+        print(rb.velocity);
         _enabled = true;
     }
+
 
     // Update is called once per frame
     void Update()
     {
+        if (!_enabled)
+        {
+            return;
+        }
+
+        var rb = GetComponent<Rigidbody2D>();
+        rb.velocity = rb.velocity.normalized * speed;
+        print(rb.velocity);
     }
 
     void OnCollisionEnter2D(Collision2D col)
