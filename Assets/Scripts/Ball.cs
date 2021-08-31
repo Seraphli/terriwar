@@ -29,7 +29,7 @@ public class Ball : MonoBehaviour
 
 
     // Update is called once per frame
-    void FixedUpdate()
+    void LateUpdate()
     {
         if (!_enabled)
         {
@@ -50,7 +50,7 @@ public class Ball : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionExit2D(Collision2D col)
     {
         if (!_enabled)
         {
