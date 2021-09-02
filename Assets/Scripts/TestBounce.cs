@@ -7,9 +7,8 @@ public class TestBounce : MonoBehaviour
 {
     private List<Vector2> points = new List<Vector2>();
 
-
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         var sr = GetComponent<SpriteRenderer>();
         var s = sr.sprite;
