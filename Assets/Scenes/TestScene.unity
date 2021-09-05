@@ -229,6 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 650070213}
   - component: {fileID: 650070212}
+  - component: {fileID: 650070214}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -249,7 +250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teams:
-    a: {r: 0, g: 0, b: 0, a: 0}
+  - index: 0
+    ballColor: {r: 0, g: 0, b: 0, a: 0}
+    tileColor: {r: 0, g: 0, b: 0, a: 0}
   tile: {fileID: 0}
 --- !u!4 &650070213
 Transform:
@@ -259,12 +262,40 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650070211}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0168271, y: -0.19674212, z: -0.82256776}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &650070214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650070211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 235730aec22e88742b0d61e9c0a14401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teams:
+  - index: 6
+    ballColor: {r: 0.9254902, g: 0.4392157, b: 0.3882353, a: 1}
+    tileColor: {r: 0.90588236, g: 0.29803923, b: 0.23529412, a: 1}
+  - index: 7
+    ballColor: {r: 0.92156863, g: 0.59607846, b: 0.30588236, a: 1}
+    tileColor: {r: 0.9019608, g: 0.49411765, b: 0.13333334, a: 1}
+  - index: 8
+    ballColor: {r: 0.95686275, g: 0.8156863, b: 0.24705882, a: 1}
+    tileColor: {r: 0.94509804, g: 0.76862746, b: 0.05882353, a: 1}
+  - index: 9
+    ballColor: {r: 0.34509805, g: 0.8392157, b: 0.5529412, a: 1}
+    tileColor: {r: 0.18039216, g: 0.8, b: 0.44313726, a: 1}
+  - index: 9
+    ballColor: {r: 0.28235295, g: 0.7882353, b: 0.6901961, a: 1}
+    tileColor: {r: 0.101960786, g: 0.7372549, b: 0.6117647, a: 1}
 --- !u!1 &929685637
 GameObject:
   m_ObjectHideFlags: 0
