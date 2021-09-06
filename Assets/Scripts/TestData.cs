@@ -14,21 +14,42 @@ public class Team
 // Color Table
 public struct CTab
 {
-    public static Color BallRed => HexToColor("#EC7063");
-    public static Color TileRed => HexToColor("#E74C3C");
+    public static Color BallRed => HexToColor("#EF5350");
+    public static Color TileRed => HexToColor("#E53935");
 
-
-    public static Color BallOrange => HexToColor("#EB984E");
-    public static Color TileOrange => HexToColor("#E67E22");
+    public static Color BallOrange => HexToColor("#FFA726");
+    public static Color TileOrange => HexToColor("#FB8C00");
     
-    public static Color BallYellow => HexToColor("#F4D03F");
-    public static Color TileYellow => HexToColor("#F1C40F");
+    public static Color BallYellow => HexToColor("#FFEE58");
+    public static Color TileYellow => HexToColor("#FDD835");
 
-    public static Color BallGreen => HexToColor("#58D68D");
-    public static Color TileGreen => HexToColor("#2ECC71");
+    public static Color BallGreen => HexToColor("#66BB6A");
+    public static Color TileGreen => HexToColor("#43A047");
     
-    public static Color BallCyan => HexToColor("#48C9B0");
-    public static Color TileCyan => HexToColor("#1ABC9C");
+    public static Color BallCyan => HexToColor("#26C6DA");
+    public static Color TileCyan => HexToColor("#00ACC1");
+    
+    public static Color BallBlue => HexToColor("#29B6F6");
+    public static Color TileBlue => HexToColor("#039BE5");
+    
+    public static Color BallPurple => HexToColor("#7E57C2");
+    public static Color TilePurple => HexToColor("#5E35B1");
+    
+    public static Color BallMagenta => HexToColor("#AB47BC");
+    public static Color TileMagenta => HexToColor("#8E24AA");
+    
+    public static Color BallPink => HexToColor("#EC407A");
+    public static Color TilePink => HexToColor("#D81B60");
+    
+    public static Color BallIndigo => HexToColor("#5C6BC0");
+    public static Color TileIndigo => HexToColor("#3949AB");
+    
+    public static Color BallBrown => HexToColor("#8D6E63");
+    public static Color TileBrown => HexToColor("#6D4C41");
+    
+    public static Color BallGrey => HexToColor("#BDBDBD");
+    public static Color TileGrey => HexToColor("#757575");
+
     public static Color HexToColor(string hexString)
     {
         if (hexString.StartsWith("#", StringComparison.InvariantCulture))
@@ -60,7 +81,11 @@ public class TestData : MonoBehaviour
         new Team() {index = 7, ballColor = CTab.BallOrange, tileColor = CTab.TileOrange},
         new Team() {index = 8, ballColor = CTab.BallYellow, tileColor = CTab.TileYellow},
         new Team() {index = 9, ballColor = CTab.BallGreen, tileColor = CTab.TileGreen},
-        new Team() {index = 9, ballColor = CTab.BallCyan, tileColor = CTab.TileCyan}
+        new Team() {index = 10, ballColor = CTab.BallCyan, tileColor = CTab.TileCyan},
+        new Team() {index = 11, ballColor = CTab.BallBlue, tileColor = CTab.TileBlue},
+        new Team() {index = 12, ballColor = CTab.BallPurple, tileColor = CTab.TilePurple},
+        new Team() {index = 13, ballColor = CTab.BallPink, tileColor = CTab.TilePink},
+        new Team() {index = 14, ballColor = CTab.BallGrey, tileColor = CTab.TileGrey},
     };
 
     // Start is called before the first frame update
