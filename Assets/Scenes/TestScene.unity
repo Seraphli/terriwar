@@ -249,11 +249,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5afeccda4bb39449a57aec7d01a441d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teams:
-  - index: 0
-    ballColor: {r: 0, g: 0, b: 0, a: 0}
-    tileColor: {r: 0, g: 0, b: 0, a: 0}
-  tile: {fileID: 0}
+  data: {fileID: 650070214}
+  tile: {fileID: 6337955896918057271, guid: 0284f154bae39b2478a5e36817c62f61, type: 3}
+  tileSize: 0.2
+  backgroundSize: 10
+  baseSize: 4
+  tileNum: 0
 --- !u!4 &650070213
 Transform:
   m_ObjectHideFlags: 0
@@ -718,7 +719,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 0.2
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

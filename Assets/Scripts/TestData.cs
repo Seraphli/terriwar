@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Newtonsoft.Json;
 
 [Serializable]
 public class Team
@@ -90,8 +92,14 @@ public class TestData : MonoBehaviour
 
     public Dictionary<int, Team> _teamMap;
 
-    // Start is called before the first frame update
     void Awake()
+    {
+        TextAsset targetFile = Resources.Load<TextAsset>("Colors");
+        var colorTable = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(targetFile.text);
+        print(colorTable?.Keys.Count);
+    }
+
+    public void Setup()
     {
         _teamMap = new Dictionary<int, Team>();
         foreach (var team in teams)
