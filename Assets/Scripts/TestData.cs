@@ -11,46 +11,52 @@ public class Team
     public int index;
     public Color ballColor;
     public Color tileColor;
+    public Color coreColor;
+
+    public Team(int idx, Color[] colors)
+    {
+        index = idx;
+        ballColor = colors[0];
+        tileColor = colors[1];
+        coreColor = colors[2];
+    }
 }
 
 // Color Table
-public struct CTab
+public class CTab
 {
-    public static Color BallRed => HexToColor("#EF5350");
-    public static Color TileRed => HexToColor("#E53935");
+    public Dictionary<string, Color[]> T;
+    private int _ballCIdx;
+    private int _tileCIdx;
+    private int _coreCIdx;
 
-    public static Color BallOrange => HexToColor("#FFA726");
-    public static Color TileOrange => HexToColor("#FB8C00");
+    public CTab(Dictionary<string, string[]> config)
+    {
+        T = new Dictionary<string, Color[]>();
+        foreach (var key in config.Keys)
+        {
+            var tmp = new List<Color>();
+            foreach (var value in config[key])
+            {
+                tmp.Add(HexToColor(value));
+            }
 
-    public static Color BallYellow => HexToColor("#FFEE58");
-    public static Color TileYellow => HexToColor("#FDD835");
+            T[key] = tmp.ToArray();
+        }
+    }
 
-    public static Color BallGreen => HexToColor("#66BB6A");
-    public static Color TileGreen => HexToColor("#43A047");
+    public void SetIndex(int ball, int tile, int core)
+    {
+        _ballCIdx = ball;
+        _tileCIdx = tile;
+        _coreCIdx = core;
+    }
 
-    public static Color BallCyan => HexToColor("#26C6DA");
-    public static Color TileCyan => HexToColor("#00ACC1");
-
-    public static Color BallBlue => HexToColor("#29B6F6");
-    public static Color TileBlue => HexToColor("#039BE5");
-
-    public static Color BallPurple => HexToColor("#7E57C2");
-    public static Color TilePurple => HexToColor("#5E35B1");
-
-    public static Color BallMagenta => HexToColor("#AB47BC");
-    public static Color TileMagenta => HexToColor("#8E24AA");
-
-    public static Color BallPink => HexToColor("#EC407A");
-    public static Color TilePink => HexToColor("#D81B60");
-
-    public static Color BallIndigo => HexToColor("#5C6BC0");
-    public static Color TileIndigo => HexToColor("#3949AB");
-
-    public static Color BallBrown => HexToColor("#8D6E63");
-    public static Color TileBrown => HexToColor("#6D4C41");
-
-    public static Color BallGrey => HexToColor("#BDBDBD");
-    public static Color TileGrey => HexToColor("#757575");
+    public Color[] G(string name)
+    {
+        var c = T[name];
+        return new Color[] {c[_ballCIdx], c[_tileCIdx], c[_coreCIdx]};
+    }
 
     public static Color HexToColor(string hexString)
     {
@@ -77,26 +83,32 @@ public struct CTab
 
 public class TestData : MonoBehaviour
 {
-    public Team[] teams = new[]
-    {
-        new Team() {index = 6, ballColor = CTab.BallRed, tileColor = CTab.TileRed},
-        new Team() {index = 7, ballColor = CTab.BallOrange, tileColor = CTab.TileOrange},
-        new Team() {index = 8, ballColor = CTab.BallYellow, tileColor = CTab.TileYellow},
-        new Team() {index = 9, ballColor = CTab.BallGreen, tileColor = CTab.TileGreen},
-        new Team() {index = 10, ballColor = CTab.BallCyan, tileColor = CTab.TileCyan},
-        new Team() {index = 11, ballColor = CTab.BallBlue, tileColor = CTab.TileBlue},
-        new Team() {index = 12, ballColor = CTab.BallPurple, tileColor = CTab.TilePurple},
-        new Team() {index = 13, ballColor = CTab.BallPink, tileColor = CTab.TilePink},
-        new Team() {index = 14, ballColor = CTab.BallGrey, tileColor = CTab.TileGrey},
-    };
+    public int ballCIdx = 5;
+    public int tileCIdx = 7;
+    public int coreCIdx = 9;
+    public Team[] teams;
 
     public Dictionary<int, Team> _teamMap;
+    private CTab _cTab;
 
     void Awake()
     {
         TextAsset targetFile = Resources.Load<TextAsset>("Colors");
         var colorTable = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(targetFile.text);
-        print(colorTable?.Keys.Count);
+        _cTab = new CTab(colorTable);
+        _cTab.SetIndex(ballCIdx, tileCIdx, coreCIdx);
+        teams = new[]
+        {
+            new Team(6, _cTab.G("red")),
+            new Team(7, _cTab.G("orange")),
+            new Team(8, _cTab.G("yellow")),
+            new Team(9, _cTab.G("green")),
+            new Team(10, _cTab.G("cyan")),
+            new Team(11, _cTab.G("blue")),
+            new Team(12, _cTab.G("purple")),
+            new Team(13, _cTab.G("pink")),
+            new Team(14, _cTab.G("grey")),
+        };
     }
 
     public void Setup()
