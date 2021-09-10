@@ -12,6 +12,7 @@ public class TestGM : MonoBehaviour
     public float tileSize;
     public float backgroundSize;
     public int baseSize = 4;
+    public int coreSize = 2;
     [ReadOnly] public int tileNum;
 
     // In range
@@ -20,58 +21,59 @@ public class TestGM : MonoBehaviour
         return v >= a && v < b;
     }
 
-    int CircleTileCase(int i, int j, float radius)
+    int CircleCase(int i, int j, float radius, int range)
     {
         float factor = Mathf.Sqrt(2f) / 2f;
+        int halfRange = range / 2;
         // 顺时针
         // 上
-        if (In(-baseSize / 2, i, baseSize / 2) &&
-            In(-baseSize / 2, j - (int) radius, baseSize / 2))
+        if (In(-halfRange, i, halfRange) &&
+            In(-halfRange, j - (int) radius, halfRange))
         {
             return 1;
         }
 
-        if (In(-baseSize / 2, i - (int) (radius * factor), baseSize / 2) &&
-            In(-baseSize / 2, j - (int) (radius * factor), baseSize / 2))
+        if (In(-halfRange, i - (int) (radius * factor), halfRange) &&
+            In(-halfRange, j - (int) (radius * factor), halfRange))
         {
             return 2;
         }
 
         // 右
-        if (In(-baseSize / 2, i - (int) radius, baseSize / 2) &&
-            In(-baseSize / 2, j, baseSize / 2))
+        if (In(-halfRange, i - (int) radius, halfRange) &&
+            In(-halfRange, j, halfRange))
         {
             return 3;
         }
 
-        if (In(-baseSize / 2, i - (int) (radius * factor), baseSize / 2) &&
-            In(-baseSize / 2, j + (int) (radius * factor), baseSize / 2))
+        if (In(-halfRange, i - (int) (radius * factor), halfRange) &&
+            In(-halfRange, j + (int) (radius * factor), halfRange))
         {
             return 4;
         }
 
         // 下
-        if (In(-baseSize / 2, i, baseSize / 2) &&
-            In(-baseSize / 2, j + (int) radius, baseSize / 2))
+        if (In(-halfRange, i, halfRange) &&
+            In(-halfRange, j + (int) radius, halfRange))
         {
             return 5;
         }
 
-        if (In(-baseSize / 2, i + (int) (radius * factor), baseSize / 2) &&
-            In(-baseSize / 2, j + (int) (radius * factor), baseSize / 2))
+        if (In(-halfRange, i + (int) (radius * factor), halfRange) &&
+            In(-halfRange, j + (int) (radius * factor), halfRange))
         {
             return 6;
         }
 
         // 左
-        if (In(-baseSize / 2, i + (int) radius, baseSize / 2) &&
-            In(-baseSize / 2, j, baseSize / 2))
+        if (In(-halfRange, i + (int) radius, halfRange) &&
+            In(-halfRange, j, halfRange))
         {
             return 7;
         }
 
-        if (In(-baseSize / 2, i + (int) (radius * factor), baseSize / 2) &&
-            In(-baseSize / 2, j - (int) (radius * factor), baseSize / 2))
+        if (In(-halfRange, i + (int) (radius * factor), halfRange) &&
+            In(-halfRange, j - (int) (radius * factor), halfRange))
         {
             return 8;
         }
@@ -82,7 +84,7 @@ public class TestGM : MonoBehaviour
     void PlaceColor(GameObject go, int i, int j, int size)
     {
         int[] cases = {1, 2, 3, 4, 5, 6, 7, 8};
-        var _case = CircleTileCase(i, j, size * 0.75f);
+        var _case = CircleCase(i, j, size * 0.75f, baseSize);
         if (Array.IndexOf(cases, _case) > -1)
         {
             var sr = go.GetComponent<SpriteRenderer>();
