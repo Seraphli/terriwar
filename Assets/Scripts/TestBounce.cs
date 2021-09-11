@@ -5,6 +5,7 @@ using UnityEngine.SocialPlatforms;
 
 public class TestBounce : MonoBehaviour
 {
+    public float radius = 0.1f;
     private List<Vector2> points = new List<Vector2>();
 
     // Start is called before the first frame update
@@ -19,6 +20,7 @@ public class TestBounce : MonoBehaviour
             points.Add(points[0]);
             EdgeCollider2D edge = gameObject.AddComponent<EdgeCollider2D>();
             edge.points = points.ToArray();
+            edge.edgeRadius = radius;
         }
     }
 

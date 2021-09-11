@@ -88,10 +88,16 @@ public class TestData : MonoBehaviour
     public int coreCIdx = 9;
     public Team[] teams;
 
-    public Dictionary<int, Team> _teamMap;
+    public Dictionary<int, Team> teamMap;
     private CTab _cTab;
+    private bool _setup = false;
 
-    void Awake()
+    private void Awake()
+    {
+        Setup();
+    }
+
+    void LoadColorTable()
     {
         TextAsset targetFile = Resources.Load<TextAsset>("Colors");
         var colorTable = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(targetFile.text);
@@ -113,14 +119,21 @@ public class TestData : MonoBehaviour
 
     public void Setup()
     {
-        _teamMap = new Dictionary<int, Team>();
+        if (_setup)
+        {
+            return;
+        }
+        LoadColorTable();
+        teamMap = new Dictionary<int, Team>();
         foreach (var team in teams)
         {
             // Add index to team map
-            _teamMap[team.index] = team;
+            teamMap[team.index] = team;
             // Ignore Layer Collision
             Physics2D.IgnoreLayerCollision(team.index, team.index);
         }
+
+        _setup = true;
     }
 
     // Update is called once per frame
