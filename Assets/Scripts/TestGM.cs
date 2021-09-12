@@ -8,21 +8,26 @@ using UnityEngine;
 
 public class TestGM : MonoBehaviour
 {
+    public GameObject canvas;
     public TestData data;
     public GameObject tile;
     public GameObject marble;
     public TestBounce bounce;
     public TestRank rank;
+    public TestRule rule;
     public float tileSize;
     public float backgroundSize;
     public int baseSize = 4;
     public int coreSize = 2;
+    public int destroyTick = 50;
+    public float destroySeconds = 10;
+    public float destroyScale = 10;
     [ReadOnly] public int tileNum;
-    [ReadOnly] public List<int> teamCount;
+    [ReadOnly] public List<int> teamCountList;
 
-    private Dictionary<int, int> _teamCount = new Dictionary<int, int>();
-    private Dictionary<int, List<GameObject>> _cores = new Dictionary<int, List<GameObject>>();
-    private Dictionary<int, List<GameObject>> _marbles = new Dictionary<int, List<GameObject>>();
+    public Dictionary<int, int> teamCount = new Dictionary<int, int>();
+    public Dictionary<int, List<GameObject>> cores = new Dictionary<int, List<GameObject>>();
+    public Dictionary<int, List<GameObject>> marbles = new Dictionary<int, List<GameObject>>();
 
     // In range
     bool In(int a, int v, int b)
@@ -100,12 +105,12 @@ public class TestGM : MonoBehaviour
             var sr = go.GetComponent<SpriteRenderer>();
             sr.color = data.teamMap[team].tileColor;
             go.layer = team;
-            if (!_teamCount.ContainsKey(team))
+            if (!teamCount.ContainsKey(team))
             {
-                _teamCount.Add(team, 0);
+                teamCount.Add(team, 0);
             }
 
-            _teamCount[team] += 1;
+            teamCount[team] += 1;
         }
 
         _case = CircleCase(i, j, size * 0.75f, coreSize);
@@ -115,12 +120,12 @@ public class TestGM : MonoBehaviour
             sr.color = data.teamMap[team].coreColor;
             var t = go.GetComponent<TestTile>();
             t.isCore = true;
-            if (!_cores.ContainsKey(team))
+            if (!cores.ContainsKey(team))
             {
-                _cores.Add(team, new List<GameObject>());
+                cores.Add(team, new List<GameObject>());
             }
 
-            _cores[team].Add(go);
+            cores[team].Add(go);
         }
     }
 
@@ -149,7 +154,7 @@ public class TestGM : MonoBehaviour
         var marbleZ = marble.transform.position.z;
         var marbles = new GameObject("Marbles");
         GameObject go;
-        foreach (var entry in _cores)
+        foreach (var entry in cores)
         {
             for (int i = 0; i < entry.Value.Count; i += 2)
             {
@@ -158,7 +163,7 @@ public class TestGM : MonoBehaviour
                 var pos = new Vector3(tilePos.x, tilePos.y, marbleZ);
                 go = Instantiate(marble, pos, Quaternion.identity, marbles.transform);
                 go.layer = team;
-                var b = go.GetComponent<TestBall>();
+                var b = go.GetComponent<TestMarble>();
                 b.gm = this;
                 b.team = team;
                 var c = data.teamMap[team].ballColor;
@@ -167,12 +172,12 @@ public class TestGM : MonoBehaviour
                 var tr = go.GetComponent<TrailRenderer>();
                 tr.startColor = c;
                 tr.endColor = new Color(c.r, c.g, c.b, 0f);
-                if (!_marbles.ContainsKey(team))
+                if (!this.marbles.ContainsKey(team))
                 {
-                    _marbles.Add(team, new List<GameObject>());
+                    this.marbles.Add(team, new List<GameObject>());
                 }
 
-                _marbles[team].Add(go);
+                this.marbles[team].Add(go);
             }
         }
     }
@@ -184,57 +189,121 @@ public class TestGM : MonoBehaviour
         bounce.Setup();
         PlaceTiles();
         PlaceMarble();
-        rank.Setup(_cores.Count);
+        rank.Setup(cores.Count);
+        rule.Setup(cores.Count);
+    }
+
+    IEnumerator Explode(GameObject m)
+    {
+        Destroy(m.GetComponent<CircleCollider2D>());
+        var tm = m.GetComponent<TestMarble>();
+        tm.SetSpeed(0);
+        var sr = m.GetComponent<SpriteRenderer>();
+        var c = sr.color;
+        for (int i = 0; i < destroyTick; i++)
+        {
+            m.transform.localScale += Vector3.one * destroyScale / destroyTick;
+            sr.color = new Color(c.r, c.g, c.b, (destroyTick - i) * 1f / destroyTick);
+            yield return new WaitForSeconds(destroySeconds / destroyTick);
+        }
+
+        Destroy(m);
+
+        yield return null;
     }
 
 
     void EliminateMarble(int team)
     {
-        foreach (var go in _marbles[team])
+        foreach (var go in marbles[team])
         {
-            Destroy(go);
+            StartCoroutine(Explode(go));
         }
+
+        rule.teamPB[team].SetText("0");
+        rule.teamPB[team].SetProgress(0f);
+        rule.teamPB[team].SetColor(Color.black);
+
+        marbles.Remove(team);
     }
 
     public void EliminateCore(GameObject go)
     {
         int team = -1;
-        foreach (var item in _cores)
+        foreach (var item in cores)
         {
             item.Value.Remove(go);
             if (item.Value.Count == 0)
             {
-                EliminateMarble(item.Key);
                 team = item.Key;
+                EliminateMarble(item.Key);
             }
         }
 
         if (team != -1)
         {
-            _cores.Remove(team);
+            cores.Remove(team);
         }
     }
 
     public void ChangeColor(int oldTeam, int newTeam)
     {
-        if (_teamCount.ContainsKey(oldTeam))
+        if (teamCount.ContainsKey(oldTeam))
         {
-            _teamCount[oldTeam] -= 1;
+            teamCount[oldTeam] -= 1;
         }
 
-        _teamCount[newTeam] += 1;
+        teamCount[newTeam] += 1;
+    }
+
+    public float IncrSpeed()
+    {
+        float newSpeed = -1;
+        foreach (var item in marbles)
+        {
+            foreach (var marble in item.Value)
+            {
+                var m = marble.GetComponent<TestMarble>();
+                if (newSpeed < 0)
+                {
+                    newSpeed = m.speed * rule.speedScale;
+                }
+
+                m.SetSpeed(newSpeed);
+            }
+        }
+
+        return newSpeed;
+    }
+
+    public int MarbleFission(int team)
+    {
+        if (!marbles.ContainsKey(team))
+        {
+            return 0;
+        }
+
+        var mars = marbles[team];
+        var count = mars.Count;
+        for (int i = 0; i < count; i++)
+        {
+            var go = Instantiate(mars[i]);
+            mars.Add(go);
+        }
+
+        return mars.Count;
     }
 
     // Update is called once per frame
     void Update()
     {
-        teamCount = new List<int>();
-        foreach (var item in _teamCount)
+        teamCountList = new List<int>();
+        foreach (var item in teamCount)
         {
-            teamCount.Add(item.Value);
+            teamCountList.Add(item.Value);
         }
 
-        var sorted = _teamCount.OrderByDescending(x => x.Value).ToList();
+        var sorted = teamCount.OrderByDescending(x => x.Value).ToList();
         int idx = 0;
         foreach (var item in sorted)
         {
