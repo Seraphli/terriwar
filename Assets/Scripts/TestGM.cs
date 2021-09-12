@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 
@@ -10,12 +11,16 @@ public class TestGM : MonoBehaviour
     public TestData data;
     public GameObject tile;
     public GameObject marble;
+    public TestBounce bounce;
+    public TestRank rank;
     public float tileSize;
     public float backgroundSize;
     public int baseSize = 4;
     public int coreSize = 2;
     [ReadOnly] public int tileNum;
+    [ReadOnly] public List<int> teamCount;
 
+    private Dictionary<int, int> _teamCount = new Dictionary<int, int>();
     private Dictionary<int, List<GameObject>> _cores = new Dictionary<int, List<GameObject>>();
     private Dictionary<int, List<GameObject>> _marbles = new Dictionary<int, List<GameObject>>();
 
@@ -85,35 +90,38 @@ public class TestGM : MonoBehaviour
         return 0;
     }
 
-    bool PlaceColor(GameObject go, int i, int j, int size)
+    void PlaceColor(GameObject go, int i, int j, int size)
     {
-        bool res = false;
         int[] cases = {1, 2, 3, 4, 5, 6, 7, 8};
         var _case = CircleCase(i, j, size * 0.75f, baseSize);
+        int team = _case + 5;
         if (Array.IndexOf(cases, _case) > -1)
         {
             var sr = go.GetComponent<SpriteRenderer>();
-            sr.color = data.teamMap[_case + 5].tileColor;
-            go.layer = _case + 5;
-            res = true;
+            sr.color = data.teamMap[team].tileColor;
+            go.layer = team;
+            if (!_teamCount.ContainsKey(team))
+            {
+                _teamCount.Add(team, 0);
+            }
+
+            _teamCount[team] += 1;
         }
 
         _case = CircleCase(i, j, size * 0.75f, coreSize);
         if (Array.IndexOf(cases, _case) > -1)
         {
             var sr = go.GetComponent<SpriteRenderer>();
-            sr.color = data.teamMap[_case + 5].coreColor;
+            sr.color = data.teamMap[team].coreColor;
             var t = go.GetComponent<TestTile>();
             t.isCore = true;
-            if (!_cores.ContainsKey(_case + 5))
+            if (!_cores.ContainsKey(team))
             {
-                _cores.Add(_case + 5, new List<GameObject>());
+                _cores.Add(team, new List<GameObject>());
             }
 
-            _cores[_case + 5].Add(go);
+            _cores[team].Add(go);
         }
-
-        return res;
     }
 
     void PlaceTiles()
@@ -121,7 +129,7 @@ public class TestGM : MonoBehaviour
         var tileZ = tile.transform.position.z;
         tile.transform.localScale = new Vector3(tileSize, tileSize, tileSize);
         var tiles = new GameObject("Tiles");
-        var size = (int) Math.Floor((backgroundSize / 2) / tileSize) + 1;
+        var size = (int) Math.Floor(backgroundSize / 2 / tileSize) + 1;
         tileNum = size * 2;
         GameObject go;
         for (int i = -size; i < size; i++)
@@ -153,7 +161,7 @@ public class TestGM : MonoBehaviour
                 var b = go.GetComponent<TestBall>();
                 b.gm = this;
                 b.team = team;
-                var c = data.teamMap[team].coreColor;
+                var c = data.teamMap[team].ballColor;
                 var sr = go.GetComponent<SpriteRenderer>();
                 sr.color = c;
                 var tr = go.GetComponent<TrailRenderer>();
@@ -173,8 +181,10 @@ public class TestGM : MonoBehaviour
     void Awake()
     {
         data.Setup();
+        bounce.Setup();
         PlaceTiles();
         PlaceMarble();
+        rank.Setup(_cores.Count);
     }
 
 
@@ -205,8 +215,33 @@ public class TestGM : MonoBehaviour
         }
     }
 
+    public void ChangeColor(int oldTeam, int newTeam)
+    {
+        if (_teamCount.ContainsKey(oldTeam))
+        {
+            _teamCount[oldTeam] -= 1;
+        }
+
+        _teamCount[newTeam] += 1;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        teamCount = new List<int>();
+        foreach (var item in _teamCount)
+        {
+            teamCount.Add(item.Value);
+        }
+
+        var sorted = _teamCount.OrderByDescending(x => x.Value).ToList();
+        int idx = 0;
+        foreach (var item in sorted)
+        {
+            var r = rank.ranks[idx];
+            r.SetColor(data.teamMap[item.Key].tileColor);
+            r.SetNum(item.Value);
+            idx += 1;
+        }
     }
 }

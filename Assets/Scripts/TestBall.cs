@@ -28,21 +28,14 @@ public class TestBall : MonoBehaviour
     {
         _rb.velocity = _rb.velocity.normalized * speed;
     }
-    
+
     void OnCollisionExit2D(Collision2D col)
     {
         var go = col.gameObject;
         if (go.name.Contains("Tile") && go.layer >= 6)
         {
+            gm.ChangeColor(go.layer, gameObject.layer);
             var sr = go.GetComponent<SpriteRenderer>();
-            try
-            {
-                sr.color = gm.data.teamMap[team].tileColor;
-            }
-            catch (KeyNotFoundException e)
-            {
-                print(team);
-            }
             sr.color = gm.data.teamMap[team].tileColor;
             go.layer = gameObject.layer;
             var t = go.GetComponent<TestTile>();
