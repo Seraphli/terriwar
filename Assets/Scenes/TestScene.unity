@@ -493,9 +493,9 @@ MonoBehaviour:
   gm: {fileID: 650070212}
   totalGlobalProgress: 2000
   totalGlobalProgressStep: 5000
-  totalTeamProgress: 5000
+  totalTeamProgress: 2000
   totalTeamProgressStep: 5000
-  teamScale: 0.0001
+  teamScale: 0.001
   speedScale: 1.5
   curGlobalProgress: 0
   globalPB: {fileID: 1360868265}
