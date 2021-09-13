@@ -10,6 +10,11 @@ public class TestMarble : MonoBehaviour
     public float maxSpeed;
     public int team;
     public TestGM gm;
+
+    public int destroyTick = 50;
+    public float destroySeconds = 1;
+    public float destroyScale = 10;
+
     private Rigidbody2D _rb;
 
     public void SetSpeed(float s)
@@ -28,6 +33,29 @@ public class TestMarble : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    IEnumerator Explode()
+    {
+        Destroy(GetComponent<CircleCollider2D>());
+        SetSpeed(0);
+        var sr = GetComponent<SpriteRenderer>();
+        var c = sr.color;
+        for (int i = 0; i < destroyTick; i++)
+        {
+            transform.localScale += Vector3.one * destroyScale / destroyTick;
+            sr.color = new Color(c.r, c.g, c.b, (destroyTick - i) * 1f / destroyTick);
+            yield return new WaitForSeconds(destroySeconds / destroyTick);
+        }
+
+        Destroy(gameObject);
+
+        yield return null;
+    }
+
+    public void SelfDestruction()
+    {
+        StartCoroutine(Explode());
     }
 
     void FixedUpdate()

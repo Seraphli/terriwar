@@ -413,6 +413,7 @@ GameObject:
   - component: {fileID: 650070212}
   - component: {fileID: 650070214}
   - component: {fileID: 650070215}
+  - component: {fileID: 650070216}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -434,18 +435,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 542545445}
   data: {fileID: 650070214}
-  tile: {fileID: 6337955896918057271, guid: 0284f154bae39b2478a5e36817c62f61, type: 3}
-  marble: {fileID: 8496258904709807400, guid: 3c94cfe68fef922488c802295ce96dde, type: 3}
+  map: {fileID: 650070216}
   bounce: {fileID: 1207467481}
   rank: {fileID: 1793003841}
   rule: {fileID: 650070215}
-  tileSize: 0.2
-  backgroundSize: 10
-  baseSize: 4
-  coreSize: 2
-  destroyTick: 50
-  destroySeconds: 1
-  destroyScale: 10
   tileNum: 0
   teamCountList: 
 --- !u!4 &650070213
@@ -500,6 +493,25 @@ MonoBehaviour:
   curGlobalProgress: 0
   globalPB: {fileID: 1360868265}
   pbPrefab: {fileID: 5649688454430298778, guid: 7deef9e036c73864f9ef197f5fe5765c, type: 3}
+--- !u!114 &650070216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650070211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca39f8223d5c4fc9ad144d44a9df612f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gm: {fileID: 650070212}
+  tileSize: 0.2
+  backgroundSize: 10
+  baseSize: 4
+  coreSize: 2
+  tile: {fileID: 6337955896918057271, guid: 0284f154bae39b2478a5e36817c62f61, type: 3}
+  marble: {fileID: 8496258904709807400, guid: 3c94cfe68fef922488c802295ce96dde, type: 3}
 --- !u!1 &929685637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,6 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0186f487c738ac429bcaae84f1c6f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gm: {fileID: 650070212}
   rankNum: 0
   lineSpace: 0
   canvas: {fileID: 542545445}

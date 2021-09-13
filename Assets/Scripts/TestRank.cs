@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TestRank : MonoBehaviour
 {
+    public TestGM gm;
     public int rankNum;
     public float lineSpace;
     public GameObject canvas;
@@ -29,5 +31,14 @@ public class TestRank : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var sorted = gm.teamCount.OrderByDescending(x => x.Value).ToList();
+        int idx = 0;
+        foreach (var item in sorted)
+        {
+            var r = ranks[idx];
+            r.SetColor(gm.data.teamMap[item.Key].tileColor);
+            r.SetNum(item.Value);
+            idx += 1;
+        }
     }
 }

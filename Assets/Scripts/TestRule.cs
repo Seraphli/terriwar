@@ -26,13 +26,34 @@ public class TestRule : MonoBehaviour
         if (curGlobalProgress == totalGlobalProgress)
         {
             curGlobalProgress = 0;
-            var newSpeed = gm.IncrSpeed();
+            var newSpeed = IncrSpeed();
             globalPB.SetText($"{newSpeed:0.0}x");
             totalGlobalProgress += totalGlobalProgressStep;
         }
 
         globalPB.SetProgress(curGlobalProgress * 1f / totalGlobalProgress);
     }
+
+    public float IncrSpeed()
+    {
+        float newSpeed = -1;
+        foreach (var item in gm.marbles)
+        {
+            foreach (var marble in item.Value)
+            {
+                var m = marble.GetComponent<TestMarble>();
+                if (newSpeed < 0)
+                {
+                    newSpeed = m.speed * speedScale;
+                }
+
+                m.SetSpeed(newSpeed);
+            }
+        }
+
+        return newSpeed;
+    }
+
 
     IEnumerator IncrTeamProcess()
     {
@@ -58,12 +79,30 @@ public class TestRule : MonoBehaviour
         if (curTeamProgress[team] >= totalTeamsProgress[team])
         {
             curTeamProgress[team] = 0;
-            var count = gm.MarbleFission(team);
+            var count = MarbleFission(team);
             teamPB[team].SetText($"{count}");
             totalTeamsProgress[team] += totalTeamProgressStep;
         }
 
         teamPB[team].SetProgress(curTeamProgress[team] * 1f / totalTeamsProgress[team]);
+    }
+
+    public int MarbleFission(int team)
+    {
+        if (!gm.marbles.ContainsKey(team))
+        {
+            return 0;
+        }
+
+        var mars = gm.marbles[team];
+        var count = mars.Count;
+        for (int i = 0; i < count; i++)
+        {
+            var go = Instantiate(mars[i]);
+            mars.Add(go);
+        }
+
+        return mars.Count;
     }
 
     public void Setup(int num)
