@@ -24,6 +24,7 @@ public class TestGM : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Cursor.visible = false;
         data.Setup();
         bounce.Setup();
         map.Setup();

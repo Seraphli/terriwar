@@ -100,6 +100,8 @@ public class TestRule : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             var go = Instantiate(mars[i]);
+            var tm = go.GetComponent<TestMarble>();
+            tm.SetSpeed(mars[i].GetComponent<TestMarble>().speed);
             mars.Add(go);
         }
 
