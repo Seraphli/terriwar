@@ -70,9 +70,10 @@ public class TestMap : MonoBehaviour
         var marbleZ = marble.transform.position.z;
         var marbles = new GameObject("Marbles");
         GameObject go;
+        int[] place = {0, 3};
         foreach (var entry in gm.cores)
         {
-            for (int i = 0; i < entry.Value.Count; i += 2)
+            foreach (var i in place)
             {
                 int team = entry.Key;
                 var tilePos = entry.Value[i].transform.position;
