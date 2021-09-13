@@ -11,23 +11,34 @@ public class TestMarble : MonoBehaviour
     public int team;
     public TestGM gm;
 
+    public float setupSec = 5;
     public int destroyTick = 50;
-    public float destroySeconds = 1;
+    public float destroySec = 1;
     public float destroyScale = 10;
 
     private Rigidbody2D _rb;
+    private float _speed = 0;
 
     public void SetSpeed(float s)
     {
-        speed = Math.Min(s, maxSpeed);
+        _speed = Math.Min(s, maxSpeed);
+    }
+
+    IEnumerator WaitFor()
+    {
+        yield return new WaitForSeconds(setupSec);
+        SetSpeed(speed);
+    }
+
+    public void Setup()
+    {
+        StartCoroutine(WaitFor());
     }
 
     // Start is called before the first frame update
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        var mNewForce = new Vector2(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f));
-        _rb.velocity = mNewForce.normalized * speed;
     }
 
     // Update is called once per frame
@@ -45,12 +56,10 @@ public class TestMarble : MonoBehaviour
         {
             transform.localScale += Vector3.one * destroyScale / destroyTick;
             sr.color = new Color(c.r, c.g, c.b, (destroyTick - i) * 1f / destroyTick);
-            yield return new WaitForSeconds(destroySeconds / destroyTick);
+            yield return new WaitForSeconds(destroySec / destroyTick);
         }
 
         Destroy(gameObject);
-
-        yield return null;
     }
 
     public void SelfDestruction()
@@ -60,13 +69,13 @@ public class TestMarble : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_rb.velocity.magnitude < 0.001f)
+        if (_speed > 0 && _rb.velocity.magnitude < 0.001f)
         {
             var mNewForce = new Vector2(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f));
-            _rb.velocity = mNewForce.normalized * speed;
+            _rb.velocity = mNewForce.normalized * _speed;
         }
 
-        _rb.velocity = _rb.velocity.normalized * speed;
+        _rb.velocity = _rb.velocity.normalized * _speed;
     }
 
     void OnCollisionExit2D(Collision2D col)

@@ -82,6 +82,7 @@ public class TestMap : MonoBehaviour
                 var b = go.GetComponent<TestMarble>();
                 b.gm = gm;
                 b.team = team;
+                b.Setup();
                 var c = gm.data.teamMap[team].ballColor;
                 var sr = go.GetComponent<SpriteRenderer>();
                 sr.color = c;
