@@ -135,9 +135,4 @@ public class TestData : MonoBehaviour
 
         _setup = true;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }

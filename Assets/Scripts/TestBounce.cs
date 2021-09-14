@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 
 public class TestBounce : MonoBehaviour
 {
@@ -28,10 +27,5 @@ public class TestBounce : MonoBehaviour
         }
 
         Destroy(sr);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

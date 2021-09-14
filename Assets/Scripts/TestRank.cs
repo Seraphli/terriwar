@@ -28,7 +28,6 @@ public class TestRank : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         var sorted = gm.teamCount.OrderByDescending(x => x.Value).ToList();

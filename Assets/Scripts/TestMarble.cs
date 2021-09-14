@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -19,9 +18,16 @@ public class TestMarble : MonoBehaviour
     private Rigidbody2D _rb;
     private float _speed = 0;
 
-    public void SetSpeed(float s)
+    public float SetSpeed(float s)
     {
         _speed = Math.Min(s, maxSpeed);
+        return _speed;
+    }
+
+    public float ScaleSpeed(float scale)
+    {
+        SetSpeed(_speed * scale);
+        return _speed;
     }
 
     IEnumerator WaitFor()
@@ -39,11 +45,6 @@ public class TestMarble : MonoBehaviour
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     IEnumerator Explode()

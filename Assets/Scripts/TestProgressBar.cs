@@ -24,14 +24,4 @@ public class TestProgressBar : MonoBehaviour
         var r = bar.rectTransform;
         r.sizeDelta = new Vector2(p * barBG.rectTransform.sizeDelta.x, r.sizeDelta.y);
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }

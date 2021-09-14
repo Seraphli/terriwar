@@ -43,12 +43,7 @@ public class TestRule : MonoBehaviour
             foreach (var marble in item.Value)
             {
                 var m = marble.GetComponent<TestMarble>();
-                if (newSpeed < 0)
-                {
-                    newSpeed = m.speed * speedScale;
-                }
-
-                m.SetSpeed(newSpeed);
+                newSpeed = m.ScaleSpeed(speedScale);
             }
         }
 
@@ -125,15 +120,5 @@ public class TestRule : MonoBehaviour
         }
 
         StartCoroutine(IncrTeamProcess());
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

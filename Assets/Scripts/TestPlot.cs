@@ -11,10 +11,4 @@ public class TestPlot : MonoBehaviour
         var lr = GetComponent<LineRenderer>();
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
