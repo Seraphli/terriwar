@@ -5,8 +5,6 @@ using Random = UnityEngine.Random;
 
 public class TestMarble : MonoBehaviour
 {
-    public float speed;
-    public float maxSpeed;
     public int team;
     public TestGM gm;
 
@@ -17,10 +15,11 @@ public class TestMarble : MonoBehaviour
 
     private Rigidbody2D _rb;
     private float _speed = 0;
+    private float _initSpeed;
 
     public float SetSpeed(float s)
     {
-        _speed = Math.Min(s, maxSpeed);
+        _speed = s;
         return _speed;
     }
 
@@ -33,7 +32,7 @@ public class TestMarble : MonoBehaviour
     IEnumerator WaitFor()
     {
         yield return new WaitForSeconds(setupSec);
-        SetSpeed(speed);
+        SetSpeed(_initSpeed);
     }
 
     public void Setup()
@@ -42,9 +41,10 @@ public class TestMarble : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _initSpeed = gm.rule.initSpeed;
     }
 
     IEnumerator Explode()

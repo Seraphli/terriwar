@@ -24,7 +24,11 @@ public class TestGM : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Cursor.visible = false;
+        if (!Application.isEditor)
+        {
+            Cursor.visible = false;
+        }
+
         data.Setup();
         bounce.Setup();
         map.Setup();
@@ -68,6 +72,7 @@ public class TestGM : MonoBehaviour
 
     public void ChangeColor(int oldTeam, int newTeam)
     {
+        // 处理有灰色方块的情况, 黑色方块不在
         if (teamCount.ContainsKey(oldTeam))
         {
             teamCount[oldTeam] -= 1;

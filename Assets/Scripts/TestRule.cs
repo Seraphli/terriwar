@@ -12,6 +12,9 @@ public class TestRule : MonoBehaviour
     public float totalTeamProgress;
     public float totalTeamProgressStep;
     public float teamScale = 0.01f;
+    public float initSpeed = 2;
+    public float maxSpeed = 20;
+    public float curSpeed;
     public float speedScale = 1.5f;
 
     [ReadOnly] public int curGlobalProgress;
@@ -27,27 +30,25 @@ public class TestRule : MonoBehaviour
         if (curGlobalProgress == totalGlobalProgress)
         {
             curGlobalProgress = 0;
-            var newSpeed = IncrSpeed();
-            globalPB.SetText($"{newSpeed:0.0}x");
+            IncrSpeed();
+            globalPB.SetText($"{curSpeed:0.0}x");
             totalGlobalProgress += totalGlobalProgressStep;
         }
 
         globalPB.SetProgress(curGlobalProgress * 1f / totalGlobalProgress);
     }
 
-    public float IncrSpeed()
+    public void IncrSpeed()
     {
-        float newSpeed = -1;
+        curSpeed = Math.Min(curSpeed * speedScale, maxSpeed);
         foreach (var item in gm.marbles)
         {
             foreach (var marble in item.Value)
             {
                 var m = marble.GetComponent<TestMarble>();
-                newSpeed = m.ScaleSpeed(speedScale);
+                m.SetSpeed(curSpeed);
             }
         }
-
-        return newSpeed;
     }
 
 
@@ -96,7 +97,7 @@ public class TestRule : MonoBehaviour
         {
             var go = Instantiate(mars[i]);
             var tm = go.GetComponent<TestMarble>();
-            tm.SetSpeed(mars[i].GetComponent<TestMarble>().speed);
+            tm.SetSpeed(curSpeed);
             mars.Add(go);
         }
 
@@ -105,6 +106,8 @@ public class TestRule : MonoBehaviour
 
     public void Setup(int num)
     {
+        curSpeed = initSpeed;
+        globalPB.SetText($"{curSpeed:0.0}x");
         for (int i = 0; i < num; i++)
         {
             var team = 6 + i;
