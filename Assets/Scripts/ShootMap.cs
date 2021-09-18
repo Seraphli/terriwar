@@ -2,20 +2,22 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootMap : MonoBehaviour
+public class ShootMap : Map
 {
     public TestGM gm;
     public float tileSize = 0.2f;
     public float backgroundSize = 10;
-    public int baseSize = 4;
+    public int baseSize = 5;
+    public int baseShift = 1;
     public int coreSize = 2;
+    public int coreShift = 1;
     public GameObject tile;
     public GameObject marble;
 
     void PlaceColor(GameObject go, int i, int j, int size)
     {
-        int[] cases = {1, 2, 3, 4, 5, 6, 7, 8};
-        var _case = Utils.CircleCase(i, j, size * 0.75f, baseSize);
+        int[] cases = {2, 4, 6, 8};
+        var _case = Utils.CircleCase(i, j, size + baseShift, baseSize);
         int team = _case + 5;
         if (Array.IndexOf(cases, _case) > -1)
         {
@@ -30,7 +32,7 @@ public class ShootMap : MonoBehaviour
             gm.teamCount[team] += 1;
         }
 
-        _case = Utils.CircleCase(i, j, size * 0.75f, coreSize);
+        _case = Utils.CircleCase(i, j, size + coreShift, coreSize);
         if (Array.IndexOf(cases, _case) > -1)
         {
             var sr = go.GetComponent<SpriteRenderer>();
@@ -60,6 +62,8 @@ public class ShootMap : MonoBehaviour
                 var pos = new Vector3((i + 0.5f) * tileSize, (j + 0.5f) * tileSize, tileZ);
                 go = Instantiate(tile, pos, Quaternion.identity, tiles.transform);
                 go.layer = 14;
+                var t = go.GetComponent<TestTile>();
+                t.pos = new[] {i, j};
                 PlaceColor(go, i, j, size);
             }
         }
@@ -100,9 +104,9 @@ public class ShootMap : MonoBehaviour
         }
     }
 
-    public void Setup()
+    public override void Setup()
     {
         PlaceTiles();
-        PlaceMarble();
+        // PlaceMarble();
     }
 }

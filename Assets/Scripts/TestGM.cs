@@ -10,7 +10,7 @@ public class TestGM : MonoBehaviour
 {
     public GameObject canvas;
     public TestData data;
-    public TestMap map;
+    public Map map;
     public TestBounce bounce;
     public TestRank rank;
     public TestRule rule;

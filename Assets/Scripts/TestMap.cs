@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestMap : MonoBehaviour
+public class TestMap : Map
 {
     public TestGM gm;
     public float tileSize = 0.2f;
@@ -100,7 +100,7 @@ public class TestMap : MonoBehaviour
         }
     }
 
-    public void Setup()
+    public override void Setup()
     {
         PlaceTiles();
         PlaceMarble();
