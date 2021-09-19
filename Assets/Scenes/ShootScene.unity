@@ -337,7 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 542545445}
   data: {fileID: 650070214}
-  map: {fileID: 0}
+  map: {fileID: 650070216}
   bounce: {fileID: 1207467481}
   rank: {fileID: 1793003841}
   rule: {fileID: 650070215}
@@ -412,11 +412,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gm: {fileID: 650070212}
   tileSize: 0.2
-  backgroundSize: 10
-  baseSize: 4
+  backgroundSize: 8
+  baseSize: 8
+  baseShift: 3
   coreSize: 2
-  tile: {fileID: 0}
-  marble: {fileID: 0}
+  coreShift: 8
+  tile: {fileID: 6337955896918057271, guid: 0284f154bae39b2478a5e36817c62f61, type: 3}
+  marble: {fileID: 8496258904709807400, guid: 3c94cfe68fef922488c802295ce96dde, type: 3}
 --- !u!1 &929685637
 GameObject:
   m_ObjectHideFlags: 0
