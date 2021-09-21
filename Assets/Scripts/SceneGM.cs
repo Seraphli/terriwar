@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public class GM : MonoBehaviour
+public class SceneGM : MonoBehaviour
 {
     public float hexRadius = 10.0f;
     public float squareX = 0.2f;
@@ -111,7 +111,7 @@ public class GM : MonoBehaviour
                         var c = Instantiate(circle, pos, Quaternion.identity);
                         var b = c.GetComponent<Ball>();
                         b.type = 6;
-                        b.gm = this;
+                        b.sceneGm = this;
                         c.GetComponent<SpriteRenderer>().color = colorMap[6];
                         c.layer = 6;
                     }
@@ -128,7 +128,7 @@ public class GM : MonoBehaviour
                         var c = Instantiate(circle, pos, Quaternion.identity);
                         var b = c.GetComponent<Ball>();
                         b.type = 7;
-                        b.gm = this;
+                        b.sceneGm = this;
                         c.GetComponent<SpriteRenderer>().color = colorMap[7];
                         c.layer = 7;
                     }
@@ -145,7 +145,7 @@ public class GM : MonoBehaviour
                         var c = Instantiate(circle, pos, Quaternion.identity);
                         var b = c.GetComponent<Ball>();
                         b.type = 8;
-                        b.gm = this;
+                        b.sceneGm = this;
                         c.GetComponent<SpriteRenderer>().color = colorMap[8];
                         c.layer = 8;
                     }
@@ -162,7 +162,7 @@ public class GM : MonoBehaviour
                         var c = Instantiate(circle, pos, Quaternion.identity);
                         var b = c.GetComponent<Ball>();
                         b.type = 9;
-                        b.gm = this;
+                        b.sceneGm = this;
                         b.debug = true;
                         c.GetComponent<SpriteRenderer>().color = colorMap[9];
                         c.layer = 9;

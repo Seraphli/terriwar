@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
+using MarbleRaceBase.Define;
 using UnityEngine;
 
 
-public class TestGM : MonoBehaviour
+public class ShootGM : GM
 {
     public GameObject canvas;
     public TestData data;
-    // public Map map;
     public TestBounce bounce;
     public TestRank rank;
     public TestRule rule;
@@ -19,6 +19,7 @@ public class TestGM : MonoBehaviour
 
     public Dictionary<int, int> teamCount = new Dictionary<int, int>();
     public Dictionary<int, List<GameObject>> cores = new Dictionary<int, List<GameObject>>();
+    public Dictionary<int, GameObject> cannons = new Dictionary<int, GameObject>();
     public Dictionary<int, List<GameObject>> marbles = new Dictionary<int, List<GameObject>>();
 
     // Start is called before the first frame update
@@ -31,9 +32,7 @@ public class TestGM : MonoBehaviour
 
         data.Setup();
         bounce.Setup();
-        // map.Setup();
-        rank.Setup(cores.Count);
-        rule.Setup(cores.Count);
+        map.Setup();
     }
 
 
@@ -43,10 +42,6 @@ public class TestGM : MonoBehaviour
         {
             go.GetComponent<TestMarble>().SelfDestruction();
         }
-
-        rule.teamPB[team].SetText("0");
-        rule.teamPB[team].SetProgress(0f);
-        rule.teamPB[team].SetColor(Color.black);
 
         marbles.Remove(team);
     }
