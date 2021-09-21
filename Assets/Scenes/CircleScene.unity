@@ -151,12 +151,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 223786760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d135e1911b6d40eaba8e565bdaa7f912, type: 3}
+  m_Script: {fileID: 11500000, guid: 54ae7b61a9f74cf38d3fe0fd32c240c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initSpeed: 2
-  maxSpeed: 20
-  curSpeed: 0
+  totalGlobalProgress: 100
+  totalGlobalProgressStep: 1
+  curGlobalProgress: 0
+  speedScale: 1.5
 --- !u!4 &223786762
 Transform:
   m_ObjectHideFlags: 0
@@ -186,8 +187,6 @@ MonoBehaviour:
   teams: 
   slotsBase: {fileID: 1743673286}
   teamsBase: {fileID: 1743673285}
-  marbleData: {fileID: 1743673283}
-  rule: {fileID: 223786761}
   tileSize: 0.2
   backgroundSize: 10
   baseSize: 4
@@ -196,7 +195,7 @@ MonoBehaviour:
   coreShift: -5
   marblePlaces: 0000000003000000
   tile: {fileID: 6337955896918057271, guid: 6939145671e72e147b77cafaf3f0702b, type: 3}
-  marble: {fileID: 8496258904709807400, guid: 3c94cfe68fef922488c802295ce96dde, type: 3}
+  marble: {fileID: 8496258904709807400, guid: d526005d2b817da43a8f62fe3c16438f, type: 3}
 --- !u!114 &223786765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,6 +419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 223786765}
   mapData: {fileID: 223786764}
+  rule: {fileID: 223786761}
   realTimeData: {fileID: 846499219}
   methods:
   - m_PersistentCalls:
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b140c554aa84ce08277e787c676defb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initSecond: -5
+  initSecond: -1
   curTime: 0
   events:
   - {fileID: 1329739838}
@@ -1112,7 +1112,6 @@ GameObject:
   - component: {fileID: 1743673287}
   - component: {fileID: 1743673286}
   - component: {fileID: 1743673285}
-  - component: {fileID: 1743673283}
   - component: {fileID: 1743673282}
   m_Layer: 0
   m_Name: Predefine
@@ -1133,21 +1132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3982f461a8c84c93ba2c261c6605a1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1743673283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1743673281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 093cab5ab77f455ca6c8a1f45c6fb028, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyTick: 50
-  destroySec: 1
-  destroyScale: 10
 --- !u!4 &1743673284
 Transform:
   m_ObjectHideFlags: 0

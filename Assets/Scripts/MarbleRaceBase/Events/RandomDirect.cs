@@ -20,7 +20,7 @@ namespace MarbleRaceBase.Events
             {
                 foreach (var m in entry.Value.marbles)
                 {
-                    m.SetSpeed(_gm.mapData.rule.initSpeed);
+                    m.SetSpeed(m.marbleData.initSpeed);
                 }
             }
         }

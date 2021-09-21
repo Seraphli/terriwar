@@ -6,8 +6,9 @@ namespace MarbleRaceBase.Define
 {
     public class GM : MonoBehaviour
     {
-        [Header("Map Logic")] public Map map;
+        [Header("Map Shape")] public Map map;
         [Header("Map Data")] public MapData mapData;
+        public Rule rule;
         [Header("Team information")] public RealTimeData realTimeData;
 
         public UnityEvent[] methods;

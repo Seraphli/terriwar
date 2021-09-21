@@ -13,7 +13,6 @@ public class ShootGM : GM
     public TestData data;
     public TestBounce bounce;
     public TestRank rank;
-    public TestRule rule;
     [ReadOnly] public int tileNum;
     [ReadOnly] public List<int> teamCountList;
 

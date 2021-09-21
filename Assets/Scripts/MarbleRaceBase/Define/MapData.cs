@@ -7,7 +7,5 @@ namespace MarbleRaceBase.Define
         public int[] teams;
         public SlotsBase slotsBase;
         public TeamsBase teamsBase;
-        public MarbleData marbleData;
-        public Rule rule;
     }
 }
