@@ -63,19 +63,29 @@ namespace MarbleRaceBase.Utility
 
     public class LoopPos : IEnumerable
     {
-        public int Size { get; set; }
+        public readonly int width;
+        public readonly int height;
 
         public LoopPos(int size)
         {
             Debug.Assert(size > 0);
-            Size = size;
+            width = size;
+            height = size;
+        }
+        
+        public LoopPos(int width, int height)
+        {
+            Debug.Assert(width > 0);
+            Debug.Assert(height > 0);
+            this.width = width;
+            this.height = height;
         }
 
         public IEnumerator GetEnumerator()
         {
-            for (int i = -Size; i < Size; i++)
+            for (int i = -width; i < width; i++)
             {
-                for (int j = -Size; j < Size; j++)
+                for (int j = -height; j < height; j++)
                 {
                     yield return (i + 0.5f, j + 0.5f);
                 }

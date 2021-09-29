@@ -13,11 +13,6 @@ namespace MarbleRaceBase.Define
 
         private SpriteRenderer _sr;
 
-        private void Awake()
-        {
-            _sr = GetComponent<SpriteRenderer>();
-        }
-
         public void SetPos(float i, float j)
         {
             pos = new[] {i, j};
@@ -40,12 +35,32 @@ namespace MarbleRaceBase.Define
         {
             if (isCore)
             {
-                _sr.color = slot.slotColor.coreColor;
+                SetColor(slot.slotColor.coreColor);
             }
             else
             {
-                _sr.color = slot.slotColor.tileColor;
+                SetColor(slot.slotColor.tileColor);
             }
+        }
+
+        void GetSR()
+        {
+            if (_sr == null)
+            {
+                _sr = GetComponent<SpriteRenderer>();
+            }
+        }
+
+        public void SetColor(Color c)
+        {
+            GetSR();
+            _sr.color = c;
+        }
+
+        public void SetMaskInter(SpriteMaskInteraction v)
+        {
+            GetSR();
+            _sr.maskInteraction = v;
         }
     }
 }

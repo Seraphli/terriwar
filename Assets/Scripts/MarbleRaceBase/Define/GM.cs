@@ -12,12 +12,25 @@ namespace MarbleRaceBase.Define
         [Header("Team information")] public RealTimeData realTimeData;
 
         public UnityEvent[] methods;
+        public UnityEvent[] editorMethods;
+        public bool refreshDummy;
 
         private void Start()
         {
             if (methods != null)
             {
                 foreach (var m in methods)
+                {
+                    m.Invoke();
+                }
+            }
+        }
+
+        private void OnValidate()
+        {
+            if (editorMethods != null)
+            {
+                foreach (var m in editorMethods)
                 {
                     m.Invoke();
                 }

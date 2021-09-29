@@ -143,5 +143,22 @@ namespace MarbleRaceBase.Utility
         {
             return GameObject.Find("GM").GetComponent<GM>();
         }
+        
+        public static T SafeDestroy<T>(T obj) where T : UnityEngine.Object
+        {
+            if (Application.isEditor)
+                UnityEditor.EditorApplication.delayCall += () => { DestroyImmediate(obj); };
+            else
+                Destroy(obj);
+
+            return null;
+        }
+
+        public static T SafeDestroyGameObject<T>(T component) where T : Component
+        {
+            if (component != null)
+                SafeDestroy(component.gameObject);
+            return null;
+        }
     }
 }

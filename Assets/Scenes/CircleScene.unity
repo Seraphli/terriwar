@@ -544,6 +544,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  editorMethods:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2096189077}
+        m_TargetAssemblyTypeName: MarbleRaceBase.Utility.ImageMap, MarbleRaceBase
+        m_MethodName: EditorSetup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  refreshDummy: 1
 --- !u!4 &590349868
 Transform:
   m_ObjectHideFlags: 0
@@ -1173,7 +1189,61 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paletteData: {fileID: 1743673287}
-  slots: []
+  slots:
+  - index: 0
+    layer: 0
+    slotColor:
+      ballColor: {r: 0, g: 0, b: 0, a: 0}
+      tileColor: {r: 0, g: 0, b: 0, a: 0}
+      coreColor: {r: 0, g: 0, b: 0, a: 0}
+  - index: 0
+    layer: 0
+    slotColor:
+      ballColor: {r: 0, g: 0, b: 0, a: 0}
+      tileColor: {r: 0, g: 0, b: 0, a: 0}
+      coreColor: {r: 0, g: 0, b: 0, a: 0}
+  - index: 0
+    layer: 0
+    slotColor:
+      ballColor: {r: 0, g: 0, b: 0, a: 0}
+      tileColor: {r: 0, g: 0, b: 0, a: 0}
+      coreColor: {r: 0, g: 0, b: 0, a: 0}
+  - index: 0
+    layer: 0
+    slotColor:
+      ballColor: {r: 0, g: 0, b: 0, a: 0}
+      tileColor: {r: 0, g: 0, b: 0, a: 0}
+      coreColor: {r: 0, g: 0, b: 0, a: 0}
+  - index: 0
+    layer: 0
+    slotColor:
+      ballColor: {r: 0, g: 0, b: 0, a: 0}
+      tileColor: {r: 0, g: 0, b: 0, a: 0}
+      coreColor: {r: 0, g: 0, b: 0, a: 0}
+  - index: 0
+    layer: 0
+    slotColor:
+      ballColor: {r: 0, g: 0, b: 0, a: 0}
+      tileColor: {r: 0, g: 0, b: 0, a: 0}
+      coreColor: {r: 0, g: 0, b: 0, a: 0}
+  - index: 0
+    layer: 0
+    slotColor:
+      ballColor: {r: 0, g: 0, b: 0, a: 0}
+      tileColor: {r: 0, g: 0, b: 0, a: 0}
+      coreColor: {r: 0, g: 0, b: 0, a: 0}
+  - index: 0
+    layer: 0
+    slotColor:
+      ballColor: {r: 0, g: 0, b: 0, a: 0}
+      tileColor: {r: 0, g: 0, b: 0, a: 0}
+      coreColor: {r: 0, g: 0, b: 0, a: 0}
+  - index: 0
+    layer: 0
+    slotColor:
+      ballColor: {r: 0, g: 0, b: 0, a: 0}
+      tileColor: {r: 0, g: 0, b: 0, a: 0}
+      coreColor: {r: 0, g: 0, b: 0, a: 0}
   defaultSlot:
     index: 0
     layer: 0
@@ -1181,7 +1251,16 @@ MonoBehaviour:
       ballColor: {r: 0, g: 0, b: 0, a: 0}
       tileColor: {r: 0, g: 0, b: 0, a: 0}
       coreColor: {r: 0, g: 0, b: 0, a: 0}
-  colorList: []
+  colorList:
+  - grey
+  - red
+  - orange
+  - yellow
+  - green
+  - cyan
+  - blue
+  - purple
+  - pink
   displayColors: []
 --- !u!114 &1743673287
 MonoBehaviour:
@@ -1249,3 +1328,78 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2096189076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2096189078}
+  - component: {fileID: 2096189077}
+  - component: {fileID: 2096189079}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2096189077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096189076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c837d263c44b417a8daa9069f5500b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapData: {fileID: 2096189079}
+  preview: 1
+  useImageColor: 1
+--- !u!4 &2096189078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096189076}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2096189079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096189076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3667ce4abab4ed09c0abd5bab60bbd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teams: 
+  slotsBase: {fileID: 1743673286}
+  teamsBase: {fileID: 1743673285}
+  tileSize: 0.2
+  tileZ: 0.2
+  image: {fileID: 2800000, guid: 716f8d7b90af54ee1b06588d71947b1a, type: 3}
+  colors:
+  - serializedVersion: 2
+    rgba: 4281746420
+  - serializedVersion: 2
+    rgba: 4280032439
+  - serializedVersion: 2
+    rgba: 4294638330
+  prefabs: []
+  defaultPrefab: {fileID: 6337955896918057271, guid: 6939145671e72e147b77cafaf3f0702b, type: 3}
+  slotsIndex: 
