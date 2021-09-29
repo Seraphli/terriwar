@@ -19,8 +19,23 @@ namespace MarbleRaceBase.Utility
         {
             if (mapData.image)
             {
+                List<Color32> colors32 = new List<Color32>();
                 var imgColors = mapData.image.GetPixels32();
-                mapData.colors = imgColors.Distinct().ToArray();
+                for (int i = 0; i < mapData.paletteLine; i++)
+                {
+                    for (int j = 0; j < mapData.image.width; j++)
+                    {
+                        var c = imgColors[i * mapData.image.width + j];
+                        if (c.a == 0)
+                        {
+                            break;
+                        }
+
+                        colors32.Add(c);
+                    }
+                }
+
+                mapData.colors = colors32.ToArray();
             }
             else
             {
@@ -58,7 +73,8 @@ namespace MarbleRaceBase.Utility
             {
                 // Clean up
                 var g = GameObject.Find("Tiles");
-                var objects = Resources.FindObjectsOfTypeAll<GameObject>().Where(obj => obj.name == "Tiles");
+                var objects = Resources.FindObjectsOfTypeAll<GameObject>()
+                    .Where(obj => obj.name == "Tiles");
                 foreach (var obj in objects)
                 {
                     MonoUtils.SafeDestroy(obj);
@@ -71,8 +87,11 @@ namespace MarbleRaceBase.Utility
             {
                 var i = pos.Item1;
                 var j = pos.Item2;
-                int index = (int) ((i - 0.5f + halfWidth) + (j - 0.5f + halfHeight) * mapData.image.width);
-                var realPos = new Vector3(i * mapData.tileSize, j * mapData.tileSize, mapData.tileZ);
+                int index = (int) ((i - 0.5f + halfWidth) +
+                                   (j - 0.5f + halfHeight + mapData.paletteLine) *
+                                   mapData.image.width);
+                var realPos = new Vector3(i * mapData.tileSize, j * mapData.tileSize,
+                    mapData.tileZ);
                 var prefab = _colorPrefabMap[imgColors[index]];
                 go = Instantiate(prefab, realPos, Quaternion.identity,
                     tiles.transform);

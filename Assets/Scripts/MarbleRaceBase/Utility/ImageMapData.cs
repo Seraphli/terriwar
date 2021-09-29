@@ -7,6 +7,7 @@ namespace MarbleRaceBase.Utility
     {
         public float tileSize = 0.2f;
         public float tileZ = 0.2f;
+        public int paletteLine = 1;
         public Texture2D image;
 
         public Color32[] colors;
