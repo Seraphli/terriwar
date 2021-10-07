@@ -30,23 +30,23 @@ namespace MarbleRaceBase.Define
         public void Setup()
         {
             var gm = MonoUtils.GetGM();
-            foreach (var index in gm.mapData.teams)
-            {
-                teams.Add(index, gm.mapData.teamsBase.teams[index]);
-                _teamNum++;
-            }
+            // foreach (var index in gm.mapData.teams)
+            // {
+            //     teams.Add(index, gm.mapData.teamsBase.teams[index]);
+            //     _teamNum++;
+            // }
 
-            teamCount = new int[_teamNum];
+            // teamCount = new int[_teamNum];
         }
 
         private void Update()
         {
-            int i = 0;
-            foreach (var t in teams)
-            {
-                teamCount[i] = t.Value.tileCount;
-                i++;
-            }
+            // int i = 0;
+            // foreach (var t in teams)
+            // {
+            //     teamCount[i] = t.Value.tileCount;
+            //     i++;
+            // }
         }
     }
 }

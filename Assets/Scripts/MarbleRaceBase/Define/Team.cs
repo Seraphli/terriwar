@@ -13,6 +13,7 @@ namespace MarbleRaceBase.Define
         public Slot slot;
         public bool enable = true;
         public int tileCount = 0;
+        public int ammo = 0;
         public List<Tile> cores = new List<Tile>();
         public List<Marble> marbles = new List<Marble>();
 

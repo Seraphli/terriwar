@@ -5,33 +5,19 @@ using Unity.Collections;
 
 namespace MarbleRaceBase.Define
 {
-    public class Tile : MonoBehaviour
+    public class Tile : Element
     {
-        public Slot slot;
-        public float[] pos;
         [ReadOnly] public bool isCore = false;
 
         private SpriteRenderer _sr;
 
-        public void SetPos(float i, float j)
-        {
-            pos = new[] {i, j};
-        }
-
-        public void SetSlot(Slot slot)
-        {
-            this.slot = slot;
-            gameObject.layer = slot.layer;
-            UpdateColor();
-        }
-
         public void SetCore(bool b)
         {
             isCore = b;
-            UpdateColor();
+            // UpdateColor();
         }
 
-        void UpdateColor()
+        public void UpdateColor()
         {
             if (isCore)
             {
@@ -51,7 +37,7 @@ namespace MarbleRaceBase.Define
             }
         }
 
-        public void SetColor(Color c)
+        public override void SetColor(Color c)
         {
             GetSR();
             _sr.color = c;

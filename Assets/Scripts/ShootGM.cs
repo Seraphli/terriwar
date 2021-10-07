@@ -31,7 +31,7 @@ public class ShootGM : GM
 
         data.Setup();
         bounce.Setup();
-        map.Setup();
+        // map.Setup();
     }
 
 

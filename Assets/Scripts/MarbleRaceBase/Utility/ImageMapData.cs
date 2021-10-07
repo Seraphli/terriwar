@@ -9,11 +9,11 @@ namespace MarbleRaceBase.Utility
         public float tileZ = 0.2f;
         public int paletteLine = 1;
         public Texture2D image;
+        public Texture2D imageData;
 
         public Color32[] colors;
+        public int[] commonData;
         public GameObject[] prefabs;
         public GameObject defaultPrefab;
-        public int[] slotsIndex;
- 
     }
 }
